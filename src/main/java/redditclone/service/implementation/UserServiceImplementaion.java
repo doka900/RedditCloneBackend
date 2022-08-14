@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import redditclone.model.dto.CreateUserDTO;
+import redditclone.model.dto.UpdateUserDTO;
 import redditclone.model.entity.Roles;
 import redditclone.model.entity.User;
 import redditclone.repository.UserRepository;
@@ -49,6 +50,22 @@ public class UserServiceImplementaion implements UserService{
 	    
 	    return user;
 	}
+	
+	public User updateUser(UpdateUserDTO updateUserDTO, String username) {
+
+	    User updatedUser = userRepository.findByUsername(username);
+
+	    if(!updateUserDTO.getDescription().equals(null)){
+	    	updatedUser.setDescription(updateUserDTO.getDescription());
+	    }
+
+	    if(!updateUserDTO.getDisplay_name().equals(null)){
+	    	updatedUser.setDisplay_name(updateUserDTO.getDisplay_name());
+	    }
+	    
+	    userRepository.updateUser(updatedUser.getDescription(), updatedUser.getDisplay_name(),  updatedUser.getId());
+	    return updatedUser;
+	}
 
 	@Override
 	public User findUserById(long id) {
@@ -57,12 +74,34 @@ public class UserServiceImplementaion implements UserService{
 
     @Override
     public User findByUsername(String username) {
-        Optional<User> user = userRepository.findFirstByUsername(username);
-        if (!user.isEmpty()) {
-            return user.get();
-        }
-        return null;
+        User user = userRepository.findByUsername(username);
+        return user;
     }
+
+	@Override
+	public User changePassword(String newPassword, String username) {
+		 User user = userRepository.findByUsername(username);
+		 System.out.println("NEW PASSWORD" + user.getPassword());
+		 user.setPassword(passwordEncoder.encode(newPassword));
+		 System.out.println("NEW PASSWORD" + user.getPassword());
+		 userRepository.changePassord(user.getPassword(), user.getId());
+		 return user;
+	}
+
+	@Override
+	public Boolean oldPasswordVerification(String oldPassword, String username) {
+		 User user = userRepository.findByUsername(username);
+		 if(passwordEncoder.matches( oldPassword, user.getPassword())) 
+			 return true;
+		 else 
+			 return false;
+	}
+
+	@Override
+	public User findUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        return user;
+	}
 	
 	
 }

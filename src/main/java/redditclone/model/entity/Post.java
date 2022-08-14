@@ -31,7 +31,7 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "post_id",unique = true,nullable = false)
-	private Long post_id;
+	private Long id;
 	
 	@Column
 	private String title;

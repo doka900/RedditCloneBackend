@@ -32,7 +32,7 @@ public class Community {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "community_id",unique = true,nullable = false)
-	private Long community_id;
+	private Long id;
 	
 	@Column
 	private String name;

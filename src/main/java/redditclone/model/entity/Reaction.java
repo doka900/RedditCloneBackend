@@ -28,7 +28,7 @@ public class Reaction {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long reaction_id;
+	private Long id;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "reaction_type")

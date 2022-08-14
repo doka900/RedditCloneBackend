@@ -22,9 +22,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 
+	@Override
+	@Bean
+	public UserDetailsService userDetailsService() {
+	    return super.userDetailsService();
+	}
+
+	
+	
     @Autowired
     public void configureAuthentication(
             AuthenticationManagerBuilder authenticationManagerBuilder)
@@ -39,6 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+    
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -65,9 +76,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 
-                .antMatchers(HttpMethod.GET, "api/user/").permitAll()
-
-
+                .antMatchers(HttpMethod.GET, "/api/user/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/getAll/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/register/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/{id}/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/login/").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

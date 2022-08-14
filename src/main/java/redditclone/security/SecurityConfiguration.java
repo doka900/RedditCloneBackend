@@ -79,8 +79,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/user/").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/getAll/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/register/").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/username/{username}/").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/{username}/").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/{id}/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/login/").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/changePassword/{username}/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/user/oldPasswordVerification/{username}/").permitAll()
+                
+                .antMatchers(HttpMethod.GET, "/api/community/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/community/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/community/{name}/").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/community/{name}/").permitAll()
+                
+                .antMatchers(HttpMethod.GET, "/api/post/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/post/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/post/{name}/").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/post/{title}/").permitAll()
+                
+                .antMatchers(HttpMethod.GET, "/api/reaction/{post_id}/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/reaction/voter/{voter_id}/").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/reaction/").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/reaction/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/reaction/").permitAll()
+                
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

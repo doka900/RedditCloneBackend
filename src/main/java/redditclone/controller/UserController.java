@@ -47,15 +47,6 @@ public class UserController {
     @Autowired
     UserDetailsService userDetailsService;
     
-    @Autowired
-    public UserController(UserServiceImplementaion userService, AuthenticationManager authenticationManager,
-                          UserDetailsService userDetailsService, TokenUtils tokenUtils){
-        this.userService = userService;
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.tokenUtils = tokenUtils;
-    }
-    
     @PutMapping(value = "/{username}/", consumes = "application/json")
     public ResponseEntity<User> updateUser(@RequestBody UpdateUserDTO updateUserDTO, @PathVariable("username") String username){
      return new ResponseEntity<User>(userService.updateUser(updateUserDTO, username), HttpStatus.OK);

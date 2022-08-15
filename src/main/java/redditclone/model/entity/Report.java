@@ -9,7 +9,5 @@ public class Report {
 	private LocalDate time_stamp;
 	private User reporting_user;
 	private boolean accepted;
-	
-	
-}
 
+}

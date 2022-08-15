@@ -5,16 +5,16 @@ import redditclone.model.entity.Reaction;
 
 public interface ReactionService {
 
-	Integer getKarma(long post_id);
+	public Integer getKarma(long post_id);
 
-	Integer findUserKarma(long voter_id);
+	public Integer findUserKarma(long voter_id);
 
-	Boolean hasReacted(ReactionDTO reactionDTO);
+	public Boolean hasReacted(ReactionDTO reactionDTO);
 
-	Boolean changeReaction(ReactionDTO reactionDTO);
+	public Boolean changeReaction(ReactionDTO reactionDTO);
 
-	Reaction createReaction(ReactionDTO reactionDTO);
+	public Reaction createReaction(ReactionDTO reactionDTO);
 
-	void deleteByPost(long post_id);
+	public void deleteByPost(long post_id);
 
 }

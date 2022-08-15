@@ -26,15 +26,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
-
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id",unique = true,nullable = false)
+	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
-	 
+
 	@Column
 	private String username;
 
@@ -46,16 +45,15 @@ public class User {
 
 	@Column
 	private LocalDate registration_date;
-	
+
 	@Column
 	private String description;
-	
+
 	@Column
 	private String display_name;
-	
+
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Roles role;
-
 
 }

@@ -17,32 +17,33 @@ import org.springframework.web.bind.annotation.RestController;
 import redditclone.model.dto.PostDTO;
 import redditclone.model.entity.Post;
 import redditclone.service.PostService;
+
 @CrossOrigin
 @RestController
 @RequestMapping("api/post")
 public class PostController {
-	
+
 	@Autowired
 	PostService postService;
-	
-    @GetMapping(value = "/")
-    public ResponseEntity<List<PostDTO>> findAllPosts(){
-        return new ResponseEntity<>(postService.findAllPosts(), HttpStatus.OK);
-    }
-    
-    @GetMapping(value = "/{name}/")
-    public ResponseEntity<List<PostDTO>> findPostsOfCommunity(@PathVariable("name") String name){
-        return new ResponseEntity<>(postService.findPostsOfCommunity(name), HttpStatus.OK);
-    }                     
-    
-    @PostMapping(value = "/",consumes = "application/json")
-    public ResponseEntity<Post> createPost(@RequestBody PostDTO postDTO){
-        Post newPost = postService.createPost(postDTO);
-        return new ResponseEntity<Post>(newPost, HttpStatus.OK);
-    }
-    
-    @DeleteMapping(value ="/{title}/")
-    void deletePost(@PathVariable String title) {
-        postService.deleteByTitle(title);
-      }
+
+	@GetMapping(value = "/")
+	public ResponseEntity<List<PostDTO>> findAllPosts() {
+		return new ResponseEntity<>(postService.findAllPosts(), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{name}/")
+	public ResponseEntity<List<PostDTO>> findPostsOfCommunity(@PathVariable("name") String name) {
+		return new ResponseEntity<>(postService.findPostsOfCommunity(name), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/", consumes = "application/json")
+	public ResponseEntity<Post> createPost(@RequestBody PostDTO postDTO) {
+		Post newPost = postService.createPost(postDTO);
+		return new ResponseEntity<Post>(newPost, HttpStatus.OK);
+	}
+
+	@DeleteMapping(value = "/{title}/")
+	void deletePost(@PathVariable String title) {
+		postService.deleteByTitle(title);
+	}
 }

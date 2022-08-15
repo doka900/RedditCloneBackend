@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDTO {
-	
+
 	private long id;
 	private String title;
 	private String text;
@@ -18,4 +18,3 @@ public class PostDTO {
 	private String community_name;
 
 }
-

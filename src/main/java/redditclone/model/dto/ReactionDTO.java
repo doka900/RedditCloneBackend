@@ -15,5 +15,5 @@ public class ReactionDTO {
 	private ReactionType type;
 	private long voter_id;
 	private long post_id;
-	
+
 }

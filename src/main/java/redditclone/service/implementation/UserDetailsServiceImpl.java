@@ -1,6 +1,5 @@
 package redditclone.service.implementation;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Primary;
@@ -21,25 +20,23 @@ import java.util.List;
 @Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserService userService;
+	@Autowired
+	private UserService userService;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userService.findByUsername(username);
+		User user = userService.findByUsername(username);
 
-        if(user == null){
-            throw new UsernameNotFoundException("There is no user with username " + username);
-        }else{
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            String role = "ROLE_" + user.getRole().toString();
-            grantedAuthorities.add(new SimpleGrantedAuthority(role));
+		if (user == null) {
+			throw new UsernameNotFoundException("There is no user with username " + username);
+		} else {
+			List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+			String role = "ROLE_" + user.getRole().toString();
+			grantedAuthorities.add(new SimpleGrantedAuthority(role));
 
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUsername().trim(),
-                    user.getPassword().trim(),
-                    grantedAuthorities);
-        }
-    }
+			return new org.springframework.security.core.userdetails.User(user.getUsername().trim(),
+					user.getPassword().trim(), grantedAuthorities);
+		}
+	}
 }

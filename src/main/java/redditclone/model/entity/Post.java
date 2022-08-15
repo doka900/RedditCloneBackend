@@ -2,7 +2,6 @@ package redditclone.model.entity;
 
 import java.time.LocalDate;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,30 +24,30 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="posts")
+@Table(name = "posts")
 public class Post {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "post_id",unique = true,nullable = false)
+	@Column(name = "post_id", unique = true, nullable = false)
 	private Long id;
-	
+
 	@Column
 	private String title;
-	
+
 	@Column
 	private String text;
-	
+
 	@Column
 	private LocalDate creation_date;
 
 	@JsonBackReference
-    @ManyToOne
-    @JoinColumn(name="community_id", nullable=false)
-    private Community community;
-    
-    @JoinColumn(name = "author_id", referencedColumnName = "id" , nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
+	@JoinColumn(name = "community_id", nullable = false)
+	private Community community;
+
+	@JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User author;
-    
-    }
+
+}

@@ -13,14 +13,14 @@ import redditclone.repository.UserRepository;
 import redditclone.service.CommunityService;
 
 @Service
-public class CommunityServiceImplementation implements CommunityService{
+public class CommunityServiceImplementation implements CommunityService {
 
 	@Autowired
 	private CommunityRepository communityRepository;
-	
-	@Autowired 
+
+	@Autowired
 	UserRepository userRepository;
-	
+
 	@Override
 	public List<Community> findAllCommunities() {
 		return communityRepository.findAll();
@@ -28,14 +28,14 @@ public class CommunityServiceImplementation implements CommunityService{
 
 	@Override
 	public Community createCommunity(CommunityDTO communityDTO) {
-		Community newCommunity = new Community();			
+		Community newCommunity = new Community();
 		newCommunity.setModerator(userRepository.findByUsername(communityDTO.getModeratorUsername()));
 		newCommunity.setName(communityDTO.getName());
 		newCommunity.setCreation_date(LocalDate.now());
-		newCommunity.setDescription(communityDTO.getDescription()); 
+		newCommunity.setDescription(communityDTO.getDescription());
 
-	    communityRepository.save(newCommunity);
-	    return newCommunity;
+		communityRepository.save(newCommunity);
+		return newCommunity;
 	}
 
 	@Override
@@ -48,22 +48,23 @@ public class CommunityServiceImplementation implements CommunityService{
 		communityDTO.setName(community.getName());
 		communityDTO.setModeratorUsername(community.getModerator().getUsername());
 
-	    return communityDTO;
+		return communityDTO;
 	}
-	
+
 	public Community updateCommunity(CommunityDTO communityDTO, String oldName) {
 
 		Community community = communityRepository.findByName(oldName);
 
-	    if (!communityDTO.getName().equals(null)){
-	    	community.setName(communityDTO.getName());
-	    }
-	    if (!communityDTO.getDescription().equals(null)){
-	    	community.setDescription(communityDTO.getDescription());
-	    }
-	    
-	    communityRepository.updateCommunity(communityDTO.getName(), communityDTO.getDescription(), communityDTO.getId());
-	    return community;
+		if (!communityDTO.getName().equals(null)) {
+			community.setName(communityDTO.getName());
+		}
+		if (!communityDTO.getDescription().equals(null)) {
+			community.setDescription(communityDTO.getDescription());
+		}
+
+		communityRepository.updateCommunity(communityDTO.getName(), communityDTO.getDescription(),
+				communityDTO.getId());
+		return community;
 	}
 
 }
